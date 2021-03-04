@@ -1,11 +1,30 @@
 package com.example.demo.entities;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+@Entity
+@Table(name = "books")
 public class Book {
 
 		
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "book_id")
 	private int id;
 	private String title;
-	private String author;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private Auther author;
 	public int getId() {
 		return id;
 	}
@@ -18,10 +37,10 @@ public class Book {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getAuthor() {
+	public Auther getAuthor() {
 		return author;
 	}
-	public void setAuthor(String author) {
+	public void setAuthor(Auther author) {
 		this.author = author;
 	}
 	public Book() {
@@ -32,7 +51,7 @@ public class Book {
 	public String toString() {
 		return "Book [id=" + id + ", title=" + title + ", author=" + author + "]";
 	}
-	public Book(int id, String title, String author) {
+	public Book(int id, String title, Auther author) {
 		super();
 		this.id = id;
 		this.title = title;
